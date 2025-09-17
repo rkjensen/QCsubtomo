@@ -1,0 +1,9 @@
+numpy
+scipy
+mrcfile
+torch>=1.13
+torchvision
+tqdm
+scikit-learn
+matplotlib
+pandas

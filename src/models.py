@@ -11,7 +11,6 @@ class BasicConv3d(nn.Module):
     def forward(self, x):
         return self.act(self.norm(self.conv(x)))
 
-
 class SmallResBlock(nn.Module):
     def __init__(self, channels):
         super().__init__()
@@ -38,7 +37,7 @@ class Encoder3D(nn.Module):
         )
         self.down2 = nn.Sequential(
             nn.MaxPool3d(2),
-            BasicConv3d(base_ch*2, base_ch*4),2
+            BasicConv3d(base_ch*2, base_ch*4),
             SmallResBlock(base_ch*4)
         )
         self.global_pool = nn.AdaptiveAvgPool3d(1)
@@ -52,3 +51,15 @@ class Encoder3D(nn.Module):
         x = self.fc(x)
         x = F.normalize(x, dim=1)
         return x
+
+# projector MLP used during pretraining (SimCLR)
+class Projector(nn.Module):
+    def __init__(self, in_dim, proj_dim=128):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(in_dim, in_dim),
+            nn.ReLU(inplace=True),
+            nn.Linear(in_dim, proj_dim)
+        )
+    def forward(self, x):
+        return F.normalize(self.net(x), dim=1)

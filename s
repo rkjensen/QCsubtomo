@@ -1,4 +1,5 @@
-# QCsubtomo
+```markdown
+# subtom_qc
 
 Subtomogram quality-control and classifier pipeline. Small, practical PyTorch code for: simulated-data pretraining (contrastive), classifier finetune, scoring, and simple evaluation.
 
@@ -38,5 +39,4 @@ python src/score_subtomos.py --model models/clf.pth --encoder models/pretrained.
 ```
 
 See notebooks for a guided run.
-```# QCsubtomo
-3Dunet QC subotomo
+```

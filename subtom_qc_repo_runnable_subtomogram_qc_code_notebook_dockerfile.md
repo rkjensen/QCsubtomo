@@ -31,49 +31,6 @@ subtom_qc/
     └── run_demo.sh
 ```
 
----
-
-## `requirements.txt`
-
-```
-numpy
-scipy
-mrcfile
-torch>=1.13
-torchvision
-tqdm
-scikit-learn
-matplotlib
-h5py
-pandas
-joblib
-```
-
-(If you prefer specific versions I can pin them. On CUDA machines install `torch` using the official instructions for your CUDA version.)
-
----
-
-## `Dockerfile`
-
-```
-FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
-
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3-pip python3-dev git build-essential wget && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN pip3 install --upgrade pip
-COPY requirements.txt /workspace/requirements.txt
-RUN pip3 install -r /workspace/requirements.txt
-
-WORKDIR /workspace
-COPY . /workspace
-
-CMD ["bash"]
-```
-
----
 
 ## `README.md` (top-level)
 
